@@ -1,4 +1,4 @@
-package com.example.hair_cut
+package com.llco.hair_cut
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -1,14 +1,20 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'dart:math';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:hair_cut/ad_helper.dart';
+
 
 void main() {
   runApp(HaircutScheduleScreen());
+  MobileAds.instance.initialize();
 }
 class CutDetailPage extends StatefulWidget {
   @override
   _CutDetailPageState createState() => _CutDetailPageState();
 }
+
+
 
 class _CutDetailPageState extends State<CutDetailPage> {
   bool isAnimatedContainerVisible = false;
@@ -116,6 +122,25 @@ class _CutDetailPageState extends State<CutDetailPage> {
                         ),
                       ),
                       // 他のウィジェットも同様に追加
+                      // AdMobバナー広告の表示
+                      Container(
+                        width: MediaQuery.of(context).size.width,
+                        height: 50,
+                        child: AdWidget(
+                          ad: BannerAd(
+                            adUnitId: AdHelper.bannerAdUnitId,
+                            size: AdSize.banner,
+                            request: AdRequest(),
+                            listener: BannerAdListener(
+                              onAdFailedToLoad: (ad, error) {
+                                print('Ad failed to load: $error');
+                              },
+                            ),
+                          ),
+                          key: UniqueKey(),
+                        ),
+                      ),
+
                     ],
                   ),
                 ],
